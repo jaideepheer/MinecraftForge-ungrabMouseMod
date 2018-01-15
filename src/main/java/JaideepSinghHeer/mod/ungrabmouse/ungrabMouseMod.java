@@ -25,15 +25,15 @@ import org.lwjgl.input.Mouse;
 
 import java.util.Set;
 
-@Mod(modid = ungrabMouseMod.MODID, version = ungrabMouseMod.VERSION, clientSideOnly = true, acceptedMinecraftVersions = "*",name = ungrabMouseMod.NAME, canBeDeactivated = true, guiFactory = "JaideepSinghHeer.mod.ungrabmouse.ungrabMouseMod$GUIFactory")
+@Mod(modid = ungrabMouseMod.MODID, version = ungrabMouseMod.VERSION, clientSideOnly = true, acceptedMinecraftVersions = "*",name = ungrabMouseMod.NAME, canBeDeactivated = true, guiFactory = "JaideepSinghHeer.mod.ungrabmouse.ungrabMouseMod$GUIFactory", updateJSON = "https://raw.githubusercontent.com/jaideepheer/MinecraftForge-ungrabMouseMod/master/src/main/resources/update.json")
 public class ungrabMouseMod
 {
     public static final String NAME = "Ungrab Mouse Mod";
     public static final String MODID = "ungrabmouse";
-    public static final String VERSION = "2.0";
+    public static final String VERSION = "2.1";
 
     @Mod.Instance(owner = MODID)
-    public static ungrabMouseMod INSTANCE = new ungrabMouseMod();
+    public static ungrabMouseMod INSTANCE;
 
     // Ask forge to point this variable to the ModMetaData object of this mod.
     @Mod.Metadata(value = MODID)
@@ -66,6 +66,7 @@ public class ungrabMouseMod
         metadata.authorList.set(0,"Jaideep Singh Heer");
         metadata.version = VERSION;
         metadata.description = "This is a simple mod to allow players to ungrab the mouse to do other things on their PCs while the game runs.";
+        metadata.updateJSON = "https://raw.githubusercontent.com/jaideepheer/MinecraftForge-ungrabMouseMod/master/src/main/resources/update.json";
 
         // Initialise the settings.
         config = new Configuration(event.getSuggestedConfigurationFile());
