@@ -56,7 +56,8 @@ public class ungrabMouseMod
 
     /**
      * This function sets the mod's details to be displayed in the modlist.
-     * @param event
+     * It also initialises the configuration file and object to store the mod's configs.
+     * @param event: The FMLPreInitializationEvent passed to us by forge.
      */
     @EventHandler
     public void preinit(FMLPreInitializationEvent event) {
@@ -94,19 +95,33 @@ public class ungrabMouseMod
         ClientRegistry.registerKeyBinding(ungrabKeyBind);
     }
 
+    /**
+     * This function is called by forge when any mod's config is changed from the config screen.
+     * We use it to update our variables and config files to the changes.
+     * @param event
+     */
     @SubscribeEvent
     public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event)
     {
+        // Check if the changes were for our mod.
         if(!event.getModID().equals(MODID))return;
         // Resync config.
         SyncConfig();
     }
+
+    /**
+     * This function simple reloads the values from our config object into our private variables.
+     * It also stores the latest configs to the config file.
+     */
     private void SyncConfig()
     {
+        // If no config object then return.
         if(config==null)return;
+        // Update private variable values.
         blockClicksOnUngrab = config.getBoolean("blockClicksOnUngrab",Configuration.CATEGORY_CLIENT,true,"If set to true, this tries to block clicks when the mouse is ungrabbed.");
         clicktoregrab = config.getBoolean("clicktoregrab",Configuration.CATEGORY_CLIENT,true,"If set to true, the mouse will be regrabbed if it is clicked while in-game.");
         regrabOnGUIchange = config.getBoolean("regrabOnGUIchange",Configuration.CATEGORY_CLIENT,false,"If set to true, the mouse will be regrabbed whenever a new GUI is opened.");
+        // Store to file if config changed.
         if(config.hasChanged())config.save();
     }
 
@@ -199,12 +214,16 @@ public class ungrabMouseMod
             regrabMouse();
             return;
         }
+        // Try to cancell mouse events if blockClicksOnUngrab is enabled and conditions meet.
         if(isUngrabbed && blockClicksOnUngrab && event.isCancelable())event.setCanceled(true);
     }
 
     // =============================
     //          GUI FACTORY
     //==============================
+    /**
+     * This class is used by forge to get a GuiScreen object for displaying in the config screen of our mod.
+     */
     public static class GUIFactory implements IModGuiFactory
     {
         @Override
@@ -217,9 +236,8 @@ public class ungrabMouseMod
         }
         @Override
         public GuiScreen createConfigGui(GuiScreen parentScreen) {
-            return new GuiConfig(parentScreen,new ConfigElement(config.getCategory(Configuration.CATEGORY_CLIENT)).getChildElements(),MODID,false,false,"Ungrab Mouse Mod Configuration Screen"){
-
-            };
+            // Create a config gui screen using our configuration object and return it to forge.
+            return new GuiConfig(parentScreen,new ConfigElement(config.getCategory(Configuration.CATEGORY_CLIENT)).getChildElements(),MODID,false,false,"Ungrab Mouse Mod Configuration Screen");
         }
         @Override
         public Set<RuntimeOptionCategoryElement> runtimeGuiCategories() {
