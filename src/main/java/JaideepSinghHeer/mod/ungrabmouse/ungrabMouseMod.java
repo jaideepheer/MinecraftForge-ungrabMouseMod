@@ -30,7 +30,7 @@ public class ungrabMouseMod
 {
     public static final String NAME = "Ungrab Mouse Mod";
     public static final String MODID = "ungrabmouse";
-    public static final String VERSION = "2.1";
+    public static final String VERSION = "2.2";
 
     @Mod.Instance(owner = MODID)
     public static ungrabMouseMod INSTANCE;
@@ -67,6 +67,7 @@ public class ungrabMouseMod
         metadata.version = VERSION;
         metadata.description = "This is a simple mod to allow players to ungrab the mouse to do other things on their PCs while the game runs.";
         metadata.updateJSON = "https://raw.githubusercontent.com/jaideepheer/MinecraftForge-ungrabMouseMod/master/src/main/resources/update.json";
+        metadata.logoFile = "icon.jpg";
 
         // Initialise the settings.
         config = new Configuration(event.getSuggestedConfigurationFile());
