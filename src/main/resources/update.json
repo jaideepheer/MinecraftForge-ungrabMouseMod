@@ -1,0 +1,11 @@
+{
+  "homepage": "https://minecraft.curseforge.com/projects/ungrab-mouse-mod",
+  "promos": {
+    "1.10.2-latest": "2.1",
+    "1.10.2-recommended": "2.1",
+    "1.9.4-latest": "2.1",
+    "1.9.4-recommended": "2.1",
+    "1.9-latest": "2.1",
+    "1.9-recommended": "2.1"
+  }
+}
